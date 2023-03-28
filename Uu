@@ -1,0 +1,20 @@
+pip install python-telegram-bot
+import telegram
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+
+def start(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="أهلا بك في البوت الخاص بي")
+
+def echo(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text=update.message.text)
+
+def main():
+    updater = Updater(token='6076768240:AAGNYj0vlHxKeQvtIQlY0erhrGOhqL9nedY', use_context=True)
+    dp = updater.dispatcher
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(MessageHandler(Filters.text, echo))
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
